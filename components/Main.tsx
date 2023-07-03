@@ -4,8 +4,10 @@ import { getClient } from '../utils/client'
 import mockPosts from "../mock/posts.json"
 import {  useAppSelector } from '../utils/hooks'
 import {  createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Post from './Post'
 
-const Tab = createBottomTabNavigator()
+
+
 export default function Main({ navigation }: any){ 
     const [ posts, setPosts ]: any = useState() 
     const colors = useAppSelector(state => state.theme.colors)
@@ -46,7 +48,26 @@ export default function Main({ navigation }: any){
         <View style = {styles.container}>
             <ScrollView> 
                 {mockPosts.posts.map(post =>  
-                    <Text style = {styles.text}>{post.post.name}</Text>
+                    <Post 
+                        id = { post.post.id }   
+                        name = { post.post.name }  
+                        url = { post.post.url }
+                        body={ post.post.body } 
+                        creator_id={ post.creator.id }
+                        removed = { post.post.removed }
+                        locked = { post.post.locked }
+                        published= { post.post.published }
+                        deleted = { post.post.deleted }
+                        nsfw = { post.post.nsfw }
+                        thumbnail_url =  { post.post.thumbnail_url }
+                        local = { post.post.local }
+                        featured_local = { post.post.featured_local }
+                        creator={ post.creator }
+                        counts = { post.counts }
+                        community={post.community}
+                        
+                        />
+    
                 )}
             </ScrollView>
         </View>
