@@ -9,6 +9,7 @@ import NavTab from './NavTab'
 import Messages from '../pages/Messages'
 import Profile from '../pages/Profile'
 import Search from '../pages/Search'
+import PostDetails from '../pages/PostDetails'
 
 const Tab = createBottomTabNavigator()
 
@@ -99,6 +100,7 @@ export default function Nav(){
                     headerLeft: () => <Button onPress={() => navigation.goBack()} title='Home'></Button>
                 })}
          />
+         <Tab.Screen name = "Post" component={ PostDetails } />
         </Tab.Navigator>
     )
 }
