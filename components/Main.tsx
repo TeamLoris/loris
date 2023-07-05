@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
 import { getClient } from '../utils/client'
 import mockPosts from "../mock/posts.json"
 import {  useAppSelector } from '../utils/hooks'
 import {  createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Post from './Post'
+import PostPreview from './PostPreview'
 
 
 
@@ -47,26 +47,48 @@ export default function Main({ navigation }: any){
     return( 
         <View style = {styles.container}>
             <ScrollView> 
-                {mockPosts.posts.map(post =>  
-                    <Post 
-                        id = { post.post.id }   
-                        name = { post.post.name }  
-                        url = { post.post.url }
-                        body={ post.post.body } 
-                        creator_id={ post.creator.id }
-                        removed = { post.post.removed }
-                        locked = { post.post.locked }
-                        published= { post.post.published }
-                        deleted = { post.post.deleted }
-                        nsfw = { post.post.nsfw }
-                        thumbnail_url =  { post.post.thumbnail_url }
-                        local = { post.post.local }
-                        featured_local = { post.post.featured_local }
-                        creator={ post.creator }
-                        counts = { post.counts }
-                        community={post.community}
+                {mockPosts.posts.map(({ post, creator, counts, community }) =>
+                <TouchableHighlight onPress={() => navigation.navigate("Post", { 
+                    screen: "PostDetails",
+                    params: { 
+                        id: post.id ,   
+                        name:  post.name ,  
+                        url: post.url ,
+                        body: post.body , 
+                        creator_id: creator.id,
+                        removed:  post.removed,
+                        locked:  post.locked,
+                        published:  post.published,
+                        deleted:  post.deleted,
+                        nsfw:  post.nsfw,
+                        thumbnail_url:   post.thumbnail_url,
+                        local:  post.local,
+                        featured_local:  post.featured_local,
+                        creator: creator,
+                        counts:  counts,
+                        community: community
+                    }
+                })}> 
+                    <PostPreview 
+                        id = { post.id }   
+                        name = { post.name }  
+                        url = { post.url }
+                        body={ post.body } 
+                        creator_id={ creator.id }
+                        removed = { post.removed }
+                        locked = { post.locked }
+                        published= { post.published }
+                        deleted = { post.deleted }
+                        nsfw = { post.nsfw }
+                        thumbnail_url =  { post.thumbnail_url }
+                        local = { post.local }
+                        featured_local = { post.featured_local }
+                        creator={ creator }
+                        counts = { counts }
+                        community={ community }
                         
                         />
+                </TouchableHighlight>  
     
                 )}
             </ScrollView>
